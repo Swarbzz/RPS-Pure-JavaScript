@@ -92,5 +92,17 @@ function clearModal(e) {
   }
 }
 
+//restarting the game
+function restartGame() {
+  scoreboard.player = 0;
+  scoreboard.computer = 0;
+  restart.style.display = 'none';
+  score.innerHTML = `
+    <p>Player: 0</p>
+    <p>Computer: 0</p>
+   `
+}
+
 choices.forEach(choice => choice.addEventListener('click', play));
 window.addEventListener('click', clearModal);
+restart.addEventListener('click', restartGame);

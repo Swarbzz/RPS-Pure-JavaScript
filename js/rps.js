@@ -2,21 +2,22 @@ const choices = document.querySelectorAll('.choice');
 const score = document.getElementById('score');
 const result = document.getElementById('result');
 const restart = document.getElementById('restart');
-const modal = document.querySelector('modal');
+const modal = document.querySelector('.modal');
 const scoreboard = {
   player: 0,
   computer: 0
 }
 
+// playing the game
 function play(e) {
   restart.style.display = 'inline-block';
   const playerChoice = e.target.id;
   const computerChoice = getComputerChoice();
   const winner = getWinner(playerChoice, computerChoice);
-
-  console.log(playerChoice, computerChoice, winner)
+  showWinner(winner, computerChoice);
 }
 
+// computers random choice
 function getComputerChoice() {
   const rand = Math.random();
   if(rand < 0.34)  {
@@ -28,6 +29,7 @@ function getComputerChoice() {
   }
 }
 
+// determining the winner
 function getWinner(p, c) {
   if(p === c) {
     return 'draw';
@@ -50,6 +52,37 @@ function getWinner(p, c) {
       return 'player';
     }
   }
+}
+
+//displaying the winner
+function showWinner(winner, computerChoice) {
+  if(winner === 'player') {
+    scoreboard.player++;
+    result.innerHTML = `
+      <h1 class='text-win'>You Win</h1>
+      <i class="fas fa-hand-${computerChoice} fa-5x"></i>
+      <p>Computer chose <strong>${computerChoice}</strong></p>
+    `;
+  } else if(winner === 'computer') {
+    scoreboard.computer++;
+    result.innerHTML = `
+      <h1 class='text-lose'>You Lose</h1>
+      <i class="fas fa-hand-${computerChoice} fa-5x"></i>
+      <p>Computer chose <strong>${computerChoice}</strong></p>
+    `;
+  } else {
+    result.innerHTML = `
+      <h1>You Drew</h1>
+      <i class="fas fa-hand-${computerChoice} fa-5x"></i>
+      <p>Computer chose <strong>${computerChoice}</strong></p>
+    `;
+  }
+  score.innerHTML = `
+    <p>Player: ${scoreboard.player}</p>
+    <p>Computer: ${scoreboard.computer}</p>
+    `;
+  
+  modal.style.display = 'block';
 }
 
 choices.forEach(choice => choice.addEventListener('click', play));

@@ -85,4 +85,12 @@ function showWinner(winner, computerChoice) {
   modal.style.display = 'block';
 }
 
+//getting rid of the modal box
+function clearModal(e) {
+  if(e.target == modal) {
+    modal.style.display = 'none';
+  }
+}
+
 choices.forEach(choice => choice.addEventListener('click', play));
+window.addEventListener('click', clearModal);

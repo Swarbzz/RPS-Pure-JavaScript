@@ -9,7 +9,8 @@ const scoreboard = {
 }
 
 function play(e) {
-  console.log(e.target.id);
+  restart.style.display = 'inline-block';
+  const playerChoice = e.target.id;
 }
 
 choices.forEach(choice => choice.addEventListener('click', play));
